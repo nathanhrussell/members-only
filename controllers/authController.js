@@ -54,3 +54,15 @@ exports.signup_post = [
     }
   }
 ];
+
+exports.login_get = (req, res) => {
+  res.render("login", { error: req.flash("error")[0] });
+};
+
+exports.logout_get = (req, res, next) => {
+  req.logout(function(err) {
+    if (err) return next(err);
+    req.flash("success", "You have logged out");
+    res.redirect("/");
+  });
+};
