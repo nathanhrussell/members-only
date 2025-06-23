@@ -1,16 +1,11 @@
-const express = reqire("express");
+const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const messageController = require("../controllers/messageController");
 const authController = require("../controllers/authController");
-const { ensureAuthenticated } = require("..middleware/auth");
+const { ensureAuthenticated } = require("../middleware/auth");
 
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    req.flash("error", "You must be logged in to view this page");
-    res.redirect("/login");
-}
+
 
 router.get("/new-message", ensureAuthenticated, messageController.new_message_get);
 router.get("/signup", authController.signup_get);
