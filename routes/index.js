@@ -5,7 +5,7 @@ const messageController = require("../controllers/messageController");
 const authController = require("../controllers/authController");
 const { ensureAuthenticated } = require("../middleware/auth");
 
-
+router.get("/", messageController.index);
 
 router.get("/new-message", ensureAuthenticated, messageController.new_message_get);
 router.get("/signup", authController.signup_get);
