@@ -4,14 +4,14 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const initializePassport = require("./passport-config");
 const indexRouter = require("./routes/index");
+const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
 
 require("dotenv").config();
 
-const app = express();
-
 initializePassport(passport);
-
-app.use("/", indexRouter);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -35,6 +35,8 @@ app.use((req, res, next) => {
     res.locals.error = req.flash("error");
     next();
 });
+
+app.use("/", indexRouter);
 
 const PORT = process.env.PORT || 3000;
 
