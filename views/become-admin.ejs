@@ -1,0 +1,18 @@
+<%- include("layout") %>
+
+<h1>Apply for Admin</h1>
+
+<form action="/become-admin" method="POST">
+  <label>Enter the secret admin code:
+    <input type="password" name="code" required>
+  </label><br>
+  <button type="submit">Become Admin</button>
+</form>
+
+<% if (error) { %>
+  <p style="color: red;"><%= error %></p>
+<% } %>
+
+<% if (success) { %>
+  <p style="color: green;"><%= success %></p>
+<% } %>
