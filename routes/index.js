@@ -2,6 +2,7 @@ const express = reqire("express");
 const router = express.Router();
 const passport = require("passport");
 const authController = require("../controllers/authController");
+const { ensureAuthenticated } = require("..middleware/auth");
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -26,5 +27,8 @@ router.post(
 );
 
 router.get("/logout", authController.logout_get);
+
+router.get("/join-club", ensureAuthenticated, authController.join_club_get);
+router.post("/join-club", ensureAuthenticated, authController.join_club_post);
 
 module.exports = router;
