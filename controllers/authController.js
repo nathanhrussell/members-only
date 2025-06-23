@@ -66,3 +66,36 @@ exports.logout_get = (req, res, next) => {
     res.redirect("/");
   });
 };
+
+exports.join_club_get = (req, res) => {
+  res.render("join-club", { error: null, success: null });
+};
+
+exports.join_club_post = async (req, res, next) => {
+  const submittedCode = req.body.code;
+  const correctCode = process.env.CLUB_SECRET;
+
+  if (submittedCode !== correctCode) {
+    return res.render("join-club", {
+      error: "Incorrect code. Try again.",
+      success: null,
+    });
+  }
+
+  try {
+    await db.query("UPDATE users SET membership_status = $1 WHERE id = $2", [
+      "club_member",
+      req.user.id,
+    ]);
+
+    // Update session data in memory
+    req.user.membership_status = "club_member";
+
+    res.render("join-club", {
+      error: null,
+      success: "Welcome to the club! You are now a club member.",
+    });
+  } catch (err) {
+    return next(err);
+  }
+};
