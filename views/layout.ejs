@@ -1,0 +1,5 @@
+<% if (currentUser) { %>
+  <p>Welcome, <%= currentUser.first_name %> | <a href="/logout">Log out</a></p>
+<% } else { %>
+  <p><a href="/login">Log in</a> or <a href="/signup">Sign up</a></p>
+<% } %>
