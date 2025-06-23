@@ -99,3 +99,36 @@ exports.join_club_post = async (req, res, next) => {
     return next(err);
   }
 };
+
+exports.become_admin_get = (req, res) => {
+  res.render("become-admin", { error: null, success: null });
+};
+
+exports.become_admin_post = async (req, res, next) => {
+  const submittedCode = req.body.code;
+  const correctCode = process.env.ADMIN_SECRET;
+
+  if (submittedCode !== correctCode) {
+    return res.render("become-admin", {
+      error: "Incorrect admin code.",
+      success: null,
+    });
+  }
+
+  try {
+    await db.query("UPDATE users SET membership_status = $1 WHERE id = $2", [
+      "admin",
+      req.user.id,
+    ]);
+
+    // Update session copy of user object
+    req.user.membership_status = "admin";
+
+    res.render("become-admin", {
+      error: null,
+      success: "You are now an admin!",
+    });
+  } catch (err) {
+    return next(err);
+  }
+};

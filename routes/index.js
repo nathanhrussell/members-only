@@ -31,4 +31,7 @@ router.get("/logout", authController.logout_get);
 router.get("/join-club", ensureAuthenticated, authController.join_club_get);
 router.post("/join-club", ensureAuthenticated, authController.join_club_post);
 
+router.get("/become-admin", ensureAuthenticated, authController.join_club_get);
+router.post("/become-admin", ensureAuthenticated, authController.join_club_post);
+
 module.exports = router;
