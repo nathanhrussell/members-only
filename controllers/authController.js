@@ -1,5 +1,6 @@
 const db = require("../models/db");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 exports.signup_post = async (req, res, next) => {
   const { first_name, last_name, email, password } = req.body;
@@ -17,4 +18,12 @@ exports.signup_post = async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+};
+
+exports.login_post = (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })(req, res, next);
 };
