@@ -56,8 +56,10 @@ exports.signup_post = [
 ];
 
 exports.login_get = (req, res) => {
-  res.render("login", { error: req.flash("error")[0] });
+  const error = req.flash("error");
+  res.render("login", { error });
 };
+
 
 exports.logout_get = (req, res, next) => {
   req.logout(function(err) {
@@ -125,7 +127,7 @@ exports.become_admin_post = async (req, res, next) => {
 
     req.flash("success", "You are now an admin!");
     res.redirect("/");
-    
+
   } catch (err) {
     return next(err);
   }
