@@ -91,10 +91,9 @@ exports.join_club_post = async (req, res, next) => {
     // Update session data in memory
     req.user.membership_status = "club_member";
 
-    res.render("join-club", {
-      error: null,
-      success: "Welcome to the club! You are now a club member.",
-    });
+    req.flash("success", "Welcome to the club! You are now a club member.");
+    res.redirect("/");
+
   } catch (err) {
     return next(err);
   }
@@ -124,10 +123,9 @@ exports.become_admin_post = async (req, res, next) => {
     // Update session copy of user object
     req.user.membership_status = "admin";
 
-    res.render("become-admin", {
-      error: null,
-      success: "You are now an admin!",
-    });
+    req.flash("success", "You are now an admin!");
+    res.redirect("/");
+    
   } catch (err) {
     return next(err);
   }

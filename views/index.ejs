@@ -1,5 +1,15 @@
 <%- include("layout") %>
 
+<% if (currentUser) { %>
+  <% if (currentUser.membership_status === "basic") { %>
+    <p><a href="/join-club">Join the club</a></p>
+  <% } %>
+
+  <% if (currentUser.membership_status === "club_member") { %>
+    <p><a href="/become-admin">Apply to become an admin</a></p>
+  <% } %>
+<% } %>
+
 <h1>Messages</h1>
 
 <% if (success) { %>
