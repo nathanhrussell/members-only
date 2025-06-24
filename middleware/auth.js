@@ -14,3 +14,11 @@ exports.ensureClubMember = (req, res, next) => {
   req.flash("error", "Only club members can post messages");
   res.redirect("/join-club");
 };
+
+exports.ensureAdmin = (req, res, next) => {
+  if (req.user?.membership_status === "admin") {
+    return next();
+  }
+  req.flash("error", "You must be an admin to do that.");
+  res.redirect("/")
+};

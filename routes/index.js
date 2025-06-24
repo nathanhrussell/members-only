@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const messageController = require("../controllers/messageController");
 const authController = require("../controllers/authController");
-const { ensureAuthenticated, ensureClubMember } = require("../middleware/auth");
+const { ensureAuthenticated, ensureClubMember, ensureAdmin } = require("../middleware/auth");
 
 router.get("/", messageController.index);
 
@@ -30,5 +30,6 @@ router.post("/join-club", ensureAuthenticated, authController.join_club_post);
 router.get("/become-admin", ensureAuthenticated, authController.become_admin_get);
 router.post("/become-admin", ensureAuthenticated, authController.become_admin_post);
 
+router.post("/message/:id/delete", ensureAuthenticated, ensureAdmin, messageController.delete_message_post);
 
 module.exports = router;
