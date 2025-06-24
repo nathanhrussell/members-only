@@ -1,11 +1,20 @@
 <%- include("layout") %>
-<h1>Welcome to Members Only</h1>
+
+<h1>Messages</h1>
 
 <% if (messages.length === 0) { %>
   <p>No messages yet.</p>
 <% } else { %>
   <% messages.forEach(msg => { %>
-    <h3><%= msg.title %></h3>
-    <p><%= msg.text %></p>
+    <div style="margin-bottom: 2rem;">
+      <h3><%= msg.title %></h3>
+      <p><%= msg.text %></p>
+
+      <% if (userIsMember) { %>
+        <small>
+          Posted by <%= msg.author %> on <%= new Date(msg.timestamp).toLocaleString() %>
+        </small>
+      <% } %>
+    </div>
   <% }) %>
 <% } %>
