@@ -22,10 +22,6 @@ router.post(
     })
 );
 
-router.get("/test", (req, res) => {
-  res.send("✅ Express app is running!");
-});
-
 router.get("/logout", authController.logout_get);
 
 router.get("/join-club", ensureAuthenticated, authController.join_club_get);
