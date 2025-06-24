@@ -1,5 +1,13 @@
 <% if (currentUser) { %>
-  <p>Welcome, <%= currentUser.first_name %> | <a href="/logout">Log out</a></p>
+  <p>
+    Welcome, <%= currentUser.first_name %> |
+    <a href="/logout">Log out</a>
+  </p>
+
+  <% if (currentUser.membership_status === "club_member" || currentUser.membership_status === "admin") { %>
+    <p><a href="/new-message">Post a new message</a></p>
+  <% } %>
+
 <% } else { %>
   <p><a href="/login">Log in</a> or <a href="/signup">Sign up</a></p>
 <% } %>
