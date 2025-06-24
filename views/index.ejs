@@ -2,6 +2,10 @@
 
 <h1>Messages</h1>
 
+<% if (success) { %>
+  <p style="color: green;"><%= success %></p>
+<% } %>
+
 <% if (messages.length === 0) { %>
   <p>No messages yet.</p>
 <% } else { %>

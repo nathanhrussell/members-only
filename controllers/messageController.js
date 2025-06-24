@@ -38,10 +38,9 @@ exports.new_message_post = async (req, res, next) => {
       [title.trim(), text.trim(), req.user.id]
     );
 
-    res.render("new-message", {
-      success: "Message posted successfully!",
-      error: null,
-    });
+    req.flash("success", "Message posted successfully!");
+    res.redirect("/");
+
   } catch (err) {
     next(err);
   }
