@@ -18,20 +18,30 @@ exports.index = async (req, res, next) => {
   }
 };
 
-// Add these missing functions:
 exports.new_message_get = (req, res) => {
   res.render("new-message");
 };
 
 exports.new_message_post = async (req, res, next) => {
+  const { title, text } = req.body;
+
+  if (!title || !text || !title.trim() || !text.trim()) {
+    return res.render("new-message", {
+      error: "Title and message text are required.",
+      success: null,
+    });
+  }
+
   try {
-    // Add your message creation logic here
-    const { title, text } = req.body;
     await db.query(
-      'INSERT INTO messages (title, text, user_id, timestamp) VALUES ($1, $2, $3, NOW())',
-      [title, text, req.user.id]
+      "INSERT INTO messages (title, text, user_id, timestamp) VALUES ($1, $2, $3, NOW())",
+      [title.trim(), text.trim(), req.user.id]
     );
-    res.redirect('/');
+
+    res.render("new-message", {
+      success: "Message posted successfully!",
+      error: null,
+    });
   } catch (err) {
     next(err);
   }
