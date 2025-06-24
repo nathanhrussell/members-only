@@ -16,6 +16,10 @@
   <p style="color: green;"><%= success %></p>
 <% } %>
 
+<% if (error) { %>
+  <p style="color: red;"><%= error %></p>
+<% } %>
+
 <% if (messages.length === 0) { %>
   <p>No messages yet.</p>
 <% } else { %>
