@@ -8,7 +8,7 @@ const { ensureAuthenticated, ensureClubMember } = require("../middleware/auth");
 router.get("/", messageController.index);
 
 router.get("/new-message", ensureAuthenticated, ensureClubMember, messageController.new_message_get);
-router.get("/new-message", ensureAuthenticated, ensureClubMember, messageController.new_message_post);
+router.post("/new-message", ensureAuthenticated, ensureClubMember, messageController.new_message_post);
 router.get("/signup", authController.signup_get);
 router.post("/signup", authController.signup_post);
 router.get("/login", authController.login_get);
