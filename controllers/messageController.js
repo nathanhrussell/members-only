@@ -45,3 +45,15 @@ exports.new_message_post = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.delete_message_post = async (req, res, next) => {
+  const messageId = req.params.id;
+
+  try {
+    await db.query("DELETE FROM messages WHERE id = $1", [messageId]);
+    req.flash("success", "Message deleted.");
+    res.redirect("/");
+  } catch (err) {
+    next(err);
+  }
+};
