@@ -32,10 +32,15 @@ app.use(passport.session());
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
+    
+    if (req.path !== '/login') {
+        res.locals.error = req.flash("error");
+    } else {
+        res.locals.error = null;
+    }
+    
     next();
 });
-
 app.use("/", indexRouter);
 
 const PORT = process.env.PORT || 3000;
