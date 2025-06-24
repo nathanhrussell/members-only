@@ -57,6 +57,7 @@ exports.signup_post = [
 
 exports.login_get = (req, res) => {
   const error = req.flash("error");
+  console.log("Flash error:", error);
   res.render("login", { error });
 };
 

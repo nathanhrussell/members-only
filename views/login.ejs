@@ -9,7 +9,5 @@
 </form>
 
 <% if (error && error.length > 0) { %>
-  <% error.forEach(err => { %>
-    <p style="color: red;"><%= err %></p>
-  <% }) %>
+  <p style="color: red;"><%= error[0] %></p>
 <% } %>
