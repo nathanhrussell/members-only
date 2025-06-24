@@ -8,12 +8,12 @@ exports.index = async (req, res, next) => {
       JOIN users ON messages.user_id = users.id
       ORDER BY messages.timestamp DESC
     `);
-    res.render("index", { messages: result.rows });
+
+    res.render("index", {
+      messages: result.rows,
+      userIsMember: req.user?.membership_status === "club_member" || req.user?.membership_status === "admin",
+    });
   } catch (err) {
     next(err);
   }
-};
-
-exports.new_message_get = (req, res) => {
-  res.render("new-message");
 };
